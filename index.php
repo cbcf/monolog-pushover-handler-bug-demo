@@ -3,6 +3,7 @@
 require_once "./vendor/autoload.php";
 require_once "PushoverHandlerWithFread.php";
 require_once "PushoverHandlerWithKeepAlive.php";
+require_once "PushoverHandlerWithFopen.php";
 require_once "./util.php";
 use Monolog\Handler\PushoverHandler;
 use Monolog\Logger;
@@ -10,7 +11,7 @@ use Monolog\Logger;
 
 /* Configure me here */
 
-// Dump responses to file for PushoverHandlerWithKeepAlive?
+// Dump responses to file for PushoverHandlerWithKeepAlive & PushoverHandlerWithFopen?
 $debugDump = true;
 // What level to send log at?
 $level = Logger::NOTICE;
@@ -21,6 +22,7 @@ $runTestsWith = [
     PushoverHandler::class                 => true,
     PushoverHandlerWithFread::class        => true,
     PushoverHandlerWithKeepAlive::class    => true,
+    PushoverHandlerWithFopen::class        => true,
 ];
 
 /* ----- */
@@ -91,14 +93,17 @@ foreach($runTestsWith as $testClass => $doTest) {
         echo "  - " . number_format($time * 1000, 3) . " ms" . PHP_EOL;
     }
 
-    if ($debugDump && $testClass == PushoverHandlerWithKeepAlive::class) {
+    if ($debugDump && (
+        $testClass == PushoverHandlerWithKeepAlive::class
+        || $testClass == PushoverHandlerWithFopen::class
+        )) {
         $fname = sprintf("%s.dump", $testId);
         echo "Dumping responses to ".$fname.PHP_EOL;
         $f = fopen($fname, "w");
-        /** @var PushoverHandlerWithKeepAlive $pushoverHandler*/
+        /** @var PushoverHandlerWithKeepAlive|PushoverHandlerWithFopen $pushoverHandler*/
         foreach($pushoverHandler->debugResponses as $response) {
             fwrite($f, "*** HEAD ***\r\n");
-            fwrite($f, $response['head']);
+            fwrite($f, is_array($response['head']) ? join("\r\n", $response['head']) : $response['head']);
             fwrite($f, "\r\n*** BODY ***\r\n");
             fwrite($f, $response['body']);
             fwrite($f, "\r\n************\r\n\r\n");
