@@ -1,0 +1,15 @@
+{
+    "name": "cbcf/monolog-pushover-handler-bug-demo",
+    "description": "Demonstrate randomly dropped packages in Monolog PushoverHandler",
+    "type": "project",
+    "require": {
+        "php": ">=7.2",
+        "monolog/monolog": "^2.1"
+    },
+    "authors": [
+        {
+            "name": "Christian Fahnemann",
+            "email": "github@cfahnemann.de"
+        }
+    ]
+}

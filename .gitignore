@@ -1,0 +1,13 @@
+# Local config (safeguard your API token)
+*.local.php
+
+# Debug output
+*.dump
+
+# Composer related
+composer.phar
+composer.lock
+/vendor/
+
+# Common IDE stuff
+/.*/
