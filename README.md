@@ -2,6 +2,8 @@
 Demonstrate randomly dropped packages in Monolog PushoverHandler
 and potential fixes. Includes a rudimentary performance measure.
 
+See issue [Seldaek/monolog#1498](https://github.com/Seldaek/monolog/issues/1498).
+
 ## How to run
 - Clone and install dependencies: `composer update`
 - Create a [Pushover](https://pushover.net/) account
