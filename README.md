@@ -12,6 +12,14 @@ and potential fixes. Includes a rudimentary performance measure.
 - Run the test `php ./index.php` (keep in mind the message limit of 7500 per month)
 
 ## Results so far
+Ubuntu root sever, datacenter (Falkenstein, Germany), PHP 7.2.24 by @cbcf
+
+Implementation               | Message Loss | Average Time | Median Time 
+-----------------------------|-------------:|-------------:|------------:
+original PushoverHandler     |         60 % |       121 ms |      124 ms
+PushoverHandlerWithFread     |          0 % |       720 ms |      358 ms
+PushoverHandlerWithKeepAlive |          0 % |       535 ms |      239 ms
+
 Windows notebook, domestic WiFi, PHP 7.4.8 by @cbcf
 
 Implementation               | Message Loss | Average Time | Median Time 
